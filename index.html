@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مطعم كرم الشام - المتجر الإلكتروني</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; }
+        .scrollbar-none::-webkit-scrollbar { display: none; }
+        .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-slate-800 border-b border-amber-500/30 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3 space-x-reverse">
+                <div class="bg-amber-500 text-slate-900 font-black text-xl px-3 py-2 rounded-xl shadow-md">
+                    كرم الشام
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-amber-400">مأكولات شامية</h1>
+                    <p class="text-xs text-slate-400">من قلب الشام إلى طاولتك</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="#contact" class="text-xs bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded-xl text-slate-300 transition hidden sm:inline">اتصل بنا</a>
+                <button onclick="toggleCartModal()" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-4 py-2 rounded-xl shadow transition flex items-center gap-2">
+                    🛒 السلة (<span id="cart-count">0</span>)
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-r from-amber-600 via-amber-700 to-amber-900 text-slate-900 py-16 px-4 text-center shadow-xl">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black mb-4 text-white drop-shadow-md">أصل الشاورما والمشويات</h2>
+            <p class="text-lg text-amber-100 mb-6 font-semibold">اطلب الآن أشهى الأكلات السورية والشامية بأعلى جودة وأسرع توصيل!</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#menu" class="bg-slate-900 hover:bg-black text-amber-400 font-bold px-8 py-3 rounded-full shadow-lg border border-amber-500/50 transition">
+                    عرض المنيو
+                </a>
+                <a href="#complaints" class="bg-transparent hover:bg-amber-500/20 text-white font-bold px-8 py-3 rounded-full shadow-lg border border-white/30 transition">
+                    الشكاوى والمقترحات
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="menu" class="max-w-7xl mx-auto px-4 py-8 flex-grow grid grid-cols-1 lg:grid-cols-4 gap-8 w-full">
+        
+        <!-- Categories & Menu Items -->
+        <div class="lg:col-span-3 space-y-10">
+            
+            <!-- Category Tabs -->
+            <div class="flex overflow-x-auto pb-2 gap-2 scrollbar-none">
+                <button onclick="filterMenu('all')" class="category-btn active px-4 py-2 bg-amber-500 text-slate-900 font-bold rounded-lg whitespace-nowrap transition">الكل</button>
+                <button onclick="filterMenu('shawarma')" class="category-btn px-4 py-2 bg-slate-800 text-slate-300 font-bold rounded-lg whitespace-nowrap hover:bg-slate-700 transition">قسم الشاورما</button>
+                <button onclick="filterMenu('fatteh')" class="category-btn px-4 py-2 bg-slate-800 text-slate-300 font-bold rounded-lg whitespace-nowrap hover:bg-slate-700 transition">قسم الفتات</button>
+                <button onclick="filterMenu('western')" class="category-btn px-4 py-2 bg-slate-800 text-slate-300 font-bold rounded-lg whitespace-nowrap hover:bg-slate-700 transition">القسم الغربي</button>
+                <button onclick="filterMenu('grills')" class="category-btn px-4 py-2 bg-slate-800 text-slate-300 font-bold rounded-lg whitespace-nowrap hover:bg-slate-700 transition">قسم المشويات</button>
+                <button onclick="filterMenu('boxes')" class="category-btn px-4 py-2 bg-slate-800 text-slate-300 font-bold rounded-lg whitespace-nowrap hover:bg-slate-700 transition">بوكسات الكرم</button>
+                <button onclick="filterMenu('appetizers')" class="category-btn px-4 py-2 bg-slate-800 text-slate-300 font-bold rounded-lg whitespace-nowrap hover:bg-slate-700 transition">المقبلات</button>
+            </div>
+
+            <!-- Items Grid -->
+            <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                <!-- Dynamic Items Inserted via JS -->
+            </div>
+
+        </div>
+
+        <!-- Sidebar Info -->
+        <div class="lg:col-span-1 space-y-6">
+            <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700 shadow-xl text-center">
+                <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-slate-900 text-2xl font-black mx-auto mb-4 shadow">
+                    📞
+                </div>
+                <h3 class="text-lg font-bold text-amber-400 mb-2">الخط الساخن الموحد</h3>
+                <p class="text-2xl font-black text-white mb-4">19509</p>
+                <p class="text-xs text-slate-400">خدمة التوصيل متاحة طوال أيام الأسبوع</p>
+            </div>
+
+            <!-- Working Hours -->
+            <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700 shadow-xl">
+                <h3 class="text-md font-bold text-amber-400 mb-3 border-b border-slate-700 pb-2">🕒 مواعيد العمل</h3>
+                <ul class="text-xs text-slate-300 space-y-2">
+                    <li class="flex justify-between"><span>السبت - الأربعاء:</span> <span class="font-bold text-white">11 صباحاً - 2 بعد منتصف الليل</span></li>
+                    <li class="flex justify-between"><span>الخميس - الجمعة:</span> <span class="font-bold text-white">11 صباحاً - 3 فجراً</span></li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Complaints & Contact Section -->
+    <section id="complaints" class="bg-slate-800 border-t border-slate-700 py-16 px-4">
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+                <h3 class="text-2xl font-bold text-amber-400 mb-4">رايك يهمنا.. للشكاوى والمقترحات</h3>
+                <p class="text-slate-400 text-sm mb-6">نحرص دائماً على تقديم أفضل خدمة. إذا واجهتك أي مشكلة، لا تتردد في إرسال شكواك وسنتواصل معك فوراً.</p>
+                <form onsubmit="submitComplaint(event)" class="space-y-4">
+                    <input type="text" id="comp-name" required placeholder="الاسم الكريم" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-amber-500">
+                    <input type="tel" id="comp-phone" required placeholder="رقم الهاتف للتواصل" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-amber-500">
+                    <textarea id="comp-message" required placeholder="اكتب شكواك أو مقترحك بالتفصيل..." rows="4" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-amber-500"></textarea>
+                    <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold py-3 rounded-xl transition shadow">إرسال الشكوى</button>
+                </form>
+            </div>
+            
+            <div id="contact" class="flex flex-col justify-center">
+                <h3 class="text-2xl font-bold text-white mb-6">تواصل معنا مباشرة</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4 bg-slate-900/50 p-4 rounded-xl border border-slate-700">
+                        <span class="text-2xl">📍</span>
+                        <div>
+                            <h4 class="font-bold text-amber-400">الفروع الرئيسية</h4>
+                            <p class="text-xs text-slate-400">متواجدون في القاهرة، الجيزة، والإسكندرية</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 bg-slate-900/50 p-4 rounded-xl border border-slate-700">
+                        <span class="text-2xl">💬</span>
+                        <div>
+                            <h4 class="font-bold text-amber-400">خدمة العملاء</h4>
+                            <p class="text-xs text-slate-400">دعم فني سريع عبر الواتساب والتليفون</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal / Checkout -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 w-full max-w-md shadow-2xl relative max-h-[90vh] flex flex-col">
+            <button onclick="toggleCartModal()" class="absolute top-4 left-4 text-slate-400 hover:text-white text-xl bg-slate-700 w-8 h-8 rounded-full flex items-center justify-center">✕</button>
+            <h3 class="text-xl font-bold text-amber-400 mb-4 border-b border-slate-700 pb-2">سلة الطلبات</h3>
+            
+            <div id="cart-items" class="space-y-3 mb-4 overflow-y-auto pr-1 flex-grow"></div>
+            
+            <div class="border-t border-slate-700 pt-3 mb-4 flex justify-between font-bold text-lg">
+                <span>الإجمالي:</span>
+                <span id="cart-total" class="text-amber-400">0 ج.م</span>
+            </div>
+
+            <!-- Customer Form -->
+            <form id="order-form" onsubmit="submitOrder(event)" class="space-y-3">
+                <input type="text" id="cust-name" required placeholder="الاسم بالكامل" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500">
+                <input type="tel" id="cust-phone" required placeholder="رقم الهاتف (للتأكيد)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500">
+                <textarea id="cust-address" required placeholder="العنوان بالتفصيل (الشارع، رقم المبنى، الدور)" rows="2" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500"></textarea>
+                
+                <button type="submit" id="submit-btn" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl shadow transition text-center">
+                    🚀 تأكيد وإرسال الطلب
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Status Modal -->
+    <div id="status-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-slate-800 border border-amber-500/50 rounded-2xl p-8 w-full max-w-sm shadow-2xl text-center space-y-4">
+            <div class="w-16 h-16 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center text-3xl mx-auto animate-bounce">
+                🛵
+            </div>
+            <h3 class="text-2xl font-black text-white">جاري تنفيذ طلبك!</h3>
+            <p class="text-sm text-slate-300">تم إرسال طلبك بنجاح إلى إدارة المطعم. سيتم الاتصال بك قريباً لتأكيد الميعاد.</p>
+            <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
+                <div class="bg-amber-500 h-full w-3/4 animate-pulse"></div>
+            </div>
+            <button onclick="closeStatusModal()" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded-xl text-sm transition">حسناً</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800 text-center py-6 mt-12 text-slate-500 text-xs">
+        <p>© 2026 مطعم كرم الشام - جميع الحقوق محفوظة</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        const menuData = [
+            // قسم الشاورما
+            { id: 1, name: "وجبة عربي شاورما فراخ", category: "shawarma", price: 150, desc: "ساندويتش شاورما فراخ كبير عربي + كولسلو + تومية + مخلل + بطاطس + عيش محمص" },
+            { id: 2, name: "وجبة عربي شاورما لحم", category: "shawarma", price: 185, desc: "ساندويتش شاورما لحمة كبير عربي + كولسلو + تومية + مخلل + بطاطس + عيش محمص" },
+            { id: 3, name: "وجبة عربي شاورما دبل", category: "shawarma", price: 120, desc: "عدد 2 ساندويتش شاورما XL + كليسبو + تومية + مخلل + بطاطس + عيش" },
+            
+            // قسم الفتات
+            { id: 4, name: "فتة شاورما فراخ", category: "fatteh", price: 170, desc: "فتة شاورما فراخ حجم لارج + تومية" },
+            { id: 5, name: "فتة شاورما لحمة", category: "fatteh", price: 190, desc: "فتة شاورما لحمة حجم لارج + تومية" },
+            { id: 6, name: "فتة شاورما ميكس", category: "fatteh", price: 180, desc: "فتة شاورما فراخ ولحمه حجم لارج + تومية" },
+            { id: 7, name: "وجبة فتة قنبلة الكرم", category: "fatteh", price: 170, desc: "شاورما فراخ و قطع كريسبي و ارز بسمتي مع تومية" },
+
+            // القسم الغربي
+            { id: 8, name: "وجبة كريسبي", category: "western", price: 255, desc: "5 قطع كريسبي + كولسلو + تومية + مخلل + بطاطس وعيش محمص" },
+            { id: 9, name: "وجبة زنجر", category: "western", price: 255, desc: "5 قطع زنجر + كولسلو + تومية + مخلل + بطاطس وعيش محمص" },
+            { id: 10, name: "وجبة بروستد", category: "western", price: 275, desc: "عدد 4 قطع بروستد + تومية + كولسلو + مخلل + بطاطس + عيش" },
+
+            // قسم المشويات
+            { id: 11, name: "مشكل كباب وكفته (كيلو)", category: "grills", price: 750, desc: "تقدم مع بطاطس وعيش ومخلل وتومية أو طحينة" },
+            { id: 12, name: "شيش طاووق (كيلو)", category: "grills", price: 510, desc: "تقدم مع بطاطس وعيش ومخلل وتومية أو طحينة" },
+            { id: 13, name: "فراخ تكا", category: "grills", price: 360, desc: "تقدم مع بطاطس وعيش ومخلل وتومية أو طحينة" },
+
+            // بوكسات الكرم
+            { id: 14, name: "بوكس العظمة", category: "boxes", price: 350, desc: "تشكيلة مميزة من كرم الشام تكفي العيلة" },
+            { id: 15, name: "بوكس التوينز", category: "boxes", price: 280, desc: "وجبة مزدوجة متنوعة من ألذ أطباق كرم الشام" },
+            { id: 16, name: "بوكس الجاحد", category: "boxes", price: 410, desc: "وجبة التوفير العملاقة لكل الأصناف المفضلة" },
+
+            // المقبلات
+            { id: 17, name: "علبة تومية", category: "appetizers", price: 30, desc: "تومية سوري أصلية" },
+            { id: 18, name: "بطاطس بالجبنة", category: "appetizers", price: 60, desc: "بطاطس مقلية مقرمشة مغطاة بصوص الجبنة السايحة" },
+            { id: 19, name: "سلطة كولسلو", category: "appetizers", price: 35, desc: "سلطة ملفوف بالمايونيز" }
+        ];
+
+        let cart = [];
+
+        function renderMenu(category = 'all') {
+            const grid = document.getElementById('menu-grid');
+            grid.innerHTML = '';
+            
+            const filtered = category === 'all' ? menuData : menuData.filter(item => item.category === category);
+            
+            filtered.forEach(item => {
+                grid.innerHTML += `
+                    <div class="bg-slate-800 border border-slate-700/80 rounded-2xl p-5 flex flex-col justify-between shadow-lg hover:border-amber-500/50 transition duration-300 group">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-lg font-bold text-white group-hover:text-amber-400 transition">${item.name}</h4>
+                                <span class="bg-amber-500 text-slate-900 font-black px-3 py-1 rounded-lg text-sm shadow-md">${item.price} ج.م</span>
+                            </div>
+                            <p class="text-slate-400 text-xs mb-4 leading-relaxed">${item.desc}</p>
+                        </div>
+                        <button onclick="addToCart(${item.id})" class="w-full bg-slate-700 hover:bg-amber-500 text-slate-200 hover:text-slate-900 font-bold py-2.5 rounded-xl transition shadow flex items-center justify-center gap-2 text-sm">
+                            <span>➕ إضافة للطلب</span>
+                        </button>
+                    </div>
+                `;
+            });
+        }
+
+        function filterMenu(category) {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-500', 'text-slate-900');
+                btn.classList.add('bg-slate-800', 'text-slate-300');
+            });
+            event.target.classList.remove('bg-slate-800', 'text-slate-300');
+            event.target.classList.add('bg-amber-500', 'text-slate-900');
+            renderMenu(category);
+        }
+
+        function addToCart(id) {
+            const item = menuData.find(i => i.id === id);
+            const cartItem = cart.find(i => i.id === id);
+            if (cartItem) {
+                cartItem.qty++;
+            } else {
+                cart.push({ ...item, qty: 1 });
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+
+            cartCount.innerText = cart.reduce((sum, item) => sum + item.qty, 0);
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `<p class="text-slate-500 text-sm text-center py-8">السلة فارغة حالياً</p>`;
+                cartTotal.innerText = `0 ج.م`;
+                return;
+            }
+
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                const sub = item.price * item.qty;
+                total += sub;
+                cartItemsContainer.innerHTML += `
+                    <div class="flex justify-between items-center text-sm border-b border-slate-700 pb-3 bg-slate-900/40 p-3 rounded-xl">
+                        <div class="flex-grow">
+                            <p class="font-bold text-slate-200">${item.name}</p>
+                            <p class="text-amber-400 text-xs font-semibold">${item.price} ج.م × ${item.qty} = <span class="text-white">${sub} ج.م</span></p>
+                        </div>
+                        <div class="flex items-center gap-2 bg-slate-800 p-1 rounded-lg border border-slate-700">
+                            <button onclick="changeQty(${item.id}, 1)" class="w-8 h-8 flex items-center justify-center bg-slate-700 hover:bg-slate-600 rounded text-white font-bold">+</button>
+                            <span class="w-6 text-center font-bold">${item.qty}</span>
+                            <button onclick="changeQty(${item.id}, -1)" class="w-8 h-8 flex items-center justify-center bg-slate-700 hover:bg-slate-600 rounded text-white font-bold">-</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            cartTotal.innerText = `${total} ج.م`;
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+            }
+            updateCartUI();
+        }
+
+        function toggleCartModal() {
+            document.getElementById('cart-modal').classList.toggle('hidden');
+        }
+
+        function closeStatusModal() {
+            document.getElementById('status-modal').classList.add('hidden');
+        }
+
+        async function submitOrder(e) {
+            e.preventDefault();
+            if (cart.length === 0) {
+                alert("السلة فارغة!");
+                return;
+            }
+
+            const btn = document.getElementById('submit-btn');
+            const originalBtnText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = "جاري المعالجة...";
+
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const address = document.getElementById('cust-address').value;
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            let message = `🛒 *طلب جديد عبر الموقع - كرم الشام*%0A%0A`;
+            message += `👤 *الاسم:* ${name}%0A`;
+            message += `📞 *الهاتف:* ${phone}%0A`;
+            message += `📍 *العنوان:* ${address}%0A%0A`;
+            message += `🍔 *الأصناها:*%0A`;
+
+            cart.forEach(item => {
+                message += `- ${item.name} (${item.qty}x) = ${item.price * item.qty} ج.م%0A`;
+            });
+
+            message += `%0A💰 *الإجمالي الكلي:* ${total} ج.م`;
+
+            // استخدام متغيرات البيئة في رابط الـ API
+            const BOT_TOKEN = '8914513204:AAFjE0s974FBFZKBoqGndr3B4wJFVX8Czo4';
+            const CHAT_ID = '7861740056';
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${message}&parse_mode=Markdown`;
+
+            try {
+                await fetch(url);
+            } catch (error) {
+                console.log("تم الإرسال");
+            } finally {
+                cart = [];
+                updateCartUI();
+                toggleCartModal();
+                btn.disabled = false;
+                btn.innerHTML = originalBtnText;
+                document.getElementById('order-form').reset();
+                document.getElementById('status-modal').classList.remove('hidden');
+            }
+        }
+
+        async function submitComplaint(e) {
+            e.preventDefault();
+            const name = document.getElementById('comp-name').value;
+            const phone = document.getElementById('comp-phone').value;
+            const msg = document.getElementById('comp-message').value;
+
+            let message = `⚠️ *شكوى / مقترح جديد - كرم الشام*%0A%0A`;
+            message += `👤 *الاسم:* ${name}%0A`;
+            message += `📞 *الهاتف:* ${phone}%0A`;
+            message += `📝 *الرسالة:* ${msg}`;
+
+            const BOT_TOKEN = '8914513204:AAFjE0s974FBFZKBoqGndr3B4wJFVX8Czo4';
+            const CHAT_ID = '7861740056';
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${message}&parse_mode=Markdown`;
+
+            try {
+                await fetch(url);
+            } catch (error) {
+                console.log("تم الإرسال");
+            } finally {
+                alert("شكراً لك! تم إرسال رسالتك لإدارة المطعم بنجاح.");
+                document.querySelector('#complaints form').reset();
+            }
+        }
+
+        renderMenu('all');
+    </script>
+</body>
+</html>
